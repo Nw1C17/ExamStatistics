@@ -1,0 +1,14 @@
+<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom box-shadow">
+        <p class="logo">ГИА <br> Статистика</p>
+        <a href="{% url 'home' %}" class="nav-link nav-text">Главная</a>
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'login' %}" class="nav-link active nav-text">Войти</a>
+<!--        <a href="{% url 'registration' %}" class="nav-link active nav-text">Регистрация</a>-->
+        {% else %}
+        <a href="{% url 'tempBuild' %}" class="nav-link active nav-text" >Шаблоны</a>
+        <a href="{% url 'profile' %}" class="nav-link active nav-text">Профиль</a>
+        <a href="{% url 'logout' %}" class="nav-link active nav-text">Выйти</a>
+        {% endif %}
+
+
+</header>

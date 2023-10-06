@@ -1,0 +1,95 @@
+{% load define_action %}
+
+<p align="center" style="text-align:center">
+  <b>
+    <span class="spn" style="font-family: Arial, sans-serif;">Отчет по шаблону "{{tempName}}"</span>
+  </b>
+</p>
+<div align="center">
+  <table border="1" cellspacing="0" cellpadding="0" style="width:800.9pt;margin-left:6.8pt;border-collapse:collapse;border:none" width="1200">
+    <thead>
+    <tr>
+      <td width="607" colspan="{{numberColumns}}" valign="top" style="width:454.9pt;border:none;
+   border-bottom:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt">
+        <p align="right" style="margin-right:-2.85pt;text-align:right"><span style="font-size:10.0pt;font-family: Arial, sans-serif;"></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td width="191" rowspan="3" valign="top" style="width:143.15pt;border:solid windowtext 1.0pt;
+   border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+        <p><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{param}}</span></p>
+      </td>
+      {% for x in head %}
+      <td width="416" colspan="{{numberColumnsHead}}" valign="bottom" style="width:311.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt">
+        <p  align="center" style="text-align:center"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{x}}</span></p>
+      </td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for x in head %}
+        {% for x in stat_fields %}
+        <td width="208" rowspan="2" valign="top" style="width:156.1pt;border-top:none;border-left:
+     none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+     padding:0cm 5.4pt 0cm 5.4pt">
+          <p align="center" style="text-align:center"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{x}}</span></p>
+        </td>
+        {% endfor %}
+        {% if slice_fields %}
+          {% for x in slice_fields %}
+          <td width="208" colspan="2" valign="top" style="width:156.1pt;border-top:none;border-left:
+         none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+         padding:0cm 5.4pt 0cm 5.4pt">
+            <p align="center" style="text-align:center"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{x}}</span></p>
+          </td>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for x in head %}
+        {% if slice_fields %}
+          {% for x in slice_fields %}
+          <td width="208" colspan="1" valign="top" style="width:156.1pt;border-top:none;border-left:
+             none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+             padding:0cm 5.4pt 0cm 5.4pt">
+            <p align="center" style="text-align:center"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">чел.</span></p>
+          </td>
+          <td width="208" colspan="1" valign="top" style="width:156.1pt;border-top:none;border-left:
+                 none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+                 padding:0cm 5.4pt 0cm 5.4pt">
+            <p align="center" style="text-align:center"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">%</span></p>
+          </td>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for name, val in stat %}
+    <tr>
+      <td width="400" valign="bottom" style="width:400.15pt;border-top:none;border-left:solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0.01cm 5.4pt 0.01cm 5.4pt">
+        <p style="margin-right:-2.85pt"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{name}}</span></p>
+      </td>
+      {% for row in val %}
+        {% for col in row %}
+      <td width="208" valign="bottom" style="width:143.15pt;border-top:none;border-left:
+  solid windowtext 1.0pt;border-bottom:none;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+        <p class="MsoNormal" align="right" style="margin-top:0cm;margin-right:36.85pt;
+  margin-bottom:0cm;margin-left:5.65pt;margin-bottom:.0001pt;text-align:right"><span style="font-size:10.0pt;font-family: Arial, sans-serif;">{{col}}</span></p>
+      </td>
+        {% endfor %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+      <td width="607" colspan="{{numberColumns}}" valign="bottom" style="
+  width:454.9pt;
+  border:none;
+  border-top:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt;
+  ">
+    </tr>
+    </tbody>
+  </table>
+</div>

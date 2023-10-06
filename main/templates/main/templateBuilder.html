@@ -1,0 +1,72 @@
+{% extends 'main/wrapper.html' %}
+{% load crispy_forms_tags %}
+{% load define_action %}
+
+{% load static %}
+{% block title %}
+Создание шаблона
+{% endblock %}
+
+{% block content %}
+{{ districts|json_script:"districts" }}
+{{ educInsts|json_script:"educInsts" }}
+<section>
+  <div class="row" style="margin-bottom: 200px; margin-top: 80px;">
+    <div class="col-md-8 offset-md-2">
+      <h3 class="text-center">Параметры шаблона</h3>
+      <hr>
+      <div class="container">
+        <form action="{% url 'tempBuild' %}" method="post" id="id_form">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 order-md-1">{{ form|crispy}}</div>
+            <div class="col-md-6 order-md-2 mb-4">
+              {% define districts as disCheck %}
+              {% define educInsts as educCheck %}
+              {% if disCheck == 2 %}
+              <p style="margin-bottom: .5rem;">Ваш район</p>
+              <ul class="list-group">
+                {% for x, y in districts %}
+                <li class="list-group-item">{{ y }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+              <div id="div_id_subjects" class="mb-3">
+                <label for="id_subjects" class="form-label requiredField">Предметы</label>
+                <select multiple="multiple" name="subjects" required="" id="id_subjects">
+                  {% for x, y in subjects %}
+                  <option value="{{ x }}">{{ y }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              {% if districts %}
+                <div id="div_id_districts" class="mb-3">
+                  <label for="id_districts" class="form-label requiredField">Районы</label>
+                  <select multiple="multiple" name="districts" required="" id="id_districts">
+                  {% for x, y in districts %}
+                  <option value="{{ x }}">{{ y }}</option>
+                  {% endfor %}
+                  </select>
+                </div>
+              {% endif %}
+              <div id="div_id_educInsts" class="mb-3">
+                <label for="id_educInsts" class="form-label requiredField">Школы</label>
+                <select multiple="multiple" name="educInsts" required="" id="id_educInsts">
+                </select>
+              </div>
+              <div id="div_id_range">
+                <a class="btn btn-sm btn-secondary my-2 W-100" id="id_button_add_range">Добавить срез</a>
+                  <div id="id_list_range"></div>
+              </div>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-success btn-block" value="Создать">
+        </form>
+      </div>
+      <hr>
+    </div>
+  </div>
+</section>
+<script src="{% static 'js/templateBuilder.js' %}"></script>
+
+{% endblock %}

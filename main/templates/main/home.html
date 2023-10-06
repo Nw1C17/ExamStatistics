@@ -1,0 +1,64 @@
+{% extends 'main/wrapper.html' %}
+{% load static %}
+{% load googlecharts %}
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="py-5">
+            <div class="py-4">
+                <div class="m-3">
+                    <p class="main-text p-2">Оперативные показатели по региону за 2021 год</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6 main-card p-3">
+                            <p class="main-text p-2">Профильная математика ЕГЭ 2021</p>
+                            <div class="m-1">
+                                <div class="row">
+                                    {% for x, y in stat%}
+                                    <p class="col-10 m-0 p-2">{{x}}</p>
+                                    <p class="col m-0 p-2" style="text-align: center;"><b>{{y}}</b></p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col main-card mx-2 p-3" >
+                            <p class="main-text p-2">График решения заданий первой части по профильной математике ЕГЭ 2021 </p>
+                            <div id="count_graph1"></div>
+
+                            {% googlecharts %}
+                            {% data values "count1" %}
+                            {% col "string" "Задание" %}"{{ val }}"{% endcol %}
+                            {% col "number" "Процент выполнения" %}{{ val|floatformat:0 }}{% endcol %}
+                            {% enddata %}
+
+                            {% options %}
+                            kind: "ColumnChart",
+                            options: {
+                            backgroundColor: "#f9f9f9",
+                            colors: ["#09f"],
+                            gridlineColor: "#ddd",
+                            legend: "процент выполненных заданий первой части",
+                            vAxis: {title: "Процент выполнения", minValue: 2},
+                            hAxis: {title: "Номер задания"},
+                            chartArea: {left: 50, top: 10, width: 500, height: 200},
+                            width: 550,
+                            height: 240,
+                            }
+                            {% endoptions %}
+
+                            {% graph "count_graph1" "count1" %}
+                            {% endgooglecharts %}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

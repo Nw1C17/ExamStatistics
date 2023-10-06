@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+{% extends 'admin/change_list.html' %}
+{% block object-tools %}
+  <form action="rerun/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="преобразовать" />
+  </form>
+    {{ block.super }}
+{% endblock %}
